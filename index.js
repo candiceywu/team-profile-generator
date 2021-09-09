@@ -22,20 +22,44 @@ const addTeamMember = () => {
                 type: 'input',
                 name: 'name',
                 message: 'Please enter the team member\'s name:',
+                validate: nameInput => {
+                    if (nameInput) {
+                        return true;
+                    } else {
+                        console.log('Please enter the team member\'s name.');
+                        return false;
+                    }
+                }
             },
 
             {
                 type: 'input',
                 name: 'id',
                 message: 'Please enter the team member\'s employee ID:',
+                validate: idInput => {
+                    if (isNaN(idInput)) {
+                        console.log('Please enter the team member\'s employee ID.');
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
             },
 
             {
                 type: 'input',
                 name: 'email',
                 message: 'Please enter the team member\'s email address:',
+                validate: email => {
+                    valid = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
+                    if (valid) {
+                        return true;
+                    } else {
+                        console.log('Please enter a valid email address.')
+                        return false;
+                    }
+                }
             },
-
             {
                 type: 'rawlist',
                 name: 'role',
@@ -48,6 +72,14 @@ const addTeamMember = () => {
                 name: 'github',
                 message: 'Please enter in the engineer\'s github username:',
                 when: (input) => input.role === 'Engineer',
+                validate: githubInput => {
+                    if (githubInput) {
+                        return true;
+                    } else {
+                        console.log('Please enter the engineer\'s gibhub username.');
+                        return false;
+                    }
+                }
             },
 
             {
@@ -55,6 +87,14 @@ const addTeamMember = () => {
                 name: 'school',
                 message: 'Please enter in the intern\'s school name:',
                 when: (input) => input.role === 'Intern',
+                validate: schoolInput => {
+                    if (schoolInput) {
+                        return true;
+                    } else {
+                        console.log('Please enter the intern\'s school name.');
+                        return false;
+                    }
+                }
             },
 
             {
@@ -62,6 +102,14 @@ const addTeamMember = () => {
                 name: 'office',
                 message: 'Please enter in the manager\'s office number:',
                 when: (input) => input.role === 'Manager',
+                validate: officeInput => {
+                    if (isNaN(officeInput)) {
+                        console.log('Please enter a valid office number.');
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
             },
 
             {
@@ -97,9 +145,9 @@ const addTeamMember = () => {
 };
 
 // //function to generate HTML page with file system
-// .then((data) => fs.writeFileSync('index.html', generateHTML(data))) //how do you export an HTML?
-// .then(() => console.log('Successfully created an HTML file.'))
-// .catch((err) => console.error(err));
+.then((data) => fs.writeFileSync('index.html', generateHTML(data))) //how do you export an HTML?
+.then(() => console.log('Successfully created an HTML file.'))
+.catch((err) => console.error(err));
 
 // Function call to initialize app
 init();
