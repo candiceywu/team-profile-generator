@@ -143,13 +143,13 @@ const addTeamMember = () => {
             {
                 type: 'input',
                 name: 'github',
-                message: 'Please enter in the engineer\'s github username:',
+                message: 'Please enter in the team member\'s github username:',
                 when: (input) => input.role === 'Engineer',
                 validate: githubInput => {
                     if (githubInput) {
                         return true;
                     } else {
-                        console.log('Please enter the engineer\'s gibhub username.');
+                        console.log('Please enter the team member\'s gibhub username.');
                         return false;
                     }
                 }
@@ -158,13 +158,13 @@ const addTeamMember = () => {
             {
                 type: 'input',
                 name: 'school',
-                message: 'Please enter in the intern\'s school name:',
+                message: 'Please enter in the team member\'s school name:',
                 when: (input) => input.role === 'Intern',
                 validate: schoolInput => {
                     if (schoolInput) {
                         return true;
                     } else {
-                        console.log('Please enter the intern\'s school name.');
+                        console.log('Please enter the team member\'s school name.');
                         return false;
                     }
                 }
@@ -202,7 +202,7 @@ const addTeamMember = () => {
 }
 //function to generate HTML page with file system
 const writeFileSync = data => {
-    fs.writeFileSync //unsure of text inside
+    fs.writeFileSync ()//unsure of text inside
 
 
 
