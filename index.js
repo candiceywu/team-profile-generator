@@ -11,9 +11,92 @@ const Intern = require("./lib/Intern");
 const teamArray = [];
 
 //do i need to wrap this all in an init()?
+
+//function for manager info
+const addManager = () => {
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                name: 'name',
+                message: 'Please enter the team manager\'s name:',
+                validate: nameInput => {
+                    if (nameInput) {
+                        return true;
+                    } else {
+                        console.log('Please enter the team manager\'s name.');
+                        return false;
+                    }
+                }
+            },
+
+            {
+                type: 'input',
+                name: 'id',
+                message: 'Please enter the team manager\'s employee ID:',
+                validate: idInput => {
+                    if (isNaN(idInput)) {
+                        console.log('Please enter the team manager\'s employee ID.');
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            },
+
+            {
+                type: 'input',
+                name: 'email',
+                message: 'Please enter the team manager\'s email address:',
+                validate: email => {
+                    valid = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
+                    if (valid) {
+                        return true;
+                    } else {
+                        console.log('Please enter a valid email address.')
+                        return false;
+                    }
+                }
+            },
+
+            {
+                type: 'input',
+                name: 'office',
+                message: 'Please enter in the manager\'s office number:',
+                validate: officeInput => {
+                    if (isNaN(officeInput)) {
+                        console.log('Please enter a valid office number.');
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            },
+
+        ])
+        .then(managerInfo => {
+            const { name, id, email, office } = managerInfo;
+            const manager = new Manager(name, id, email, office);
+
+            teamArray.push(manager);
+            console.log(manager);
+
+        })
+};
+
+
+
+//function for engineer and intern
 const addTeamMember = () => {
     inquirer
         .prompt([
+            {
+                type: 'rawlist',
+                name: 'role',
+                message: 'Please select the team member\'s role:',
+                choices: ['Engineer', 'Intern']
+            },
+
             {
                 type: 'input',
                 name: 'name',
@@ -56,12 +139,6 @@ const addTeamMember = () => {
                     }
                 }
             },
-            {
-                type: 'rawlist',
-                name: 'role',
-                message: 'Please select the team member\'s role:',
-                choices: ['Manager', 'Engineer', 'Intern']
-            },
 
             {
                 type: 'input',
@@ -94,21 +171,6 @@ const addTeamMember = () => {
             },
 
             {
-                type: 'input',
-                name: 'office',
-                message: 'Please enter in the manager\'s office number:',
-                when: (input) => input.role === 'Manager',
-                validate: officeInput => {
-                    if (isNaN(officeInput)) {
-                        console.log('Please enter a valid office number.');
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
-            },
-
-            {
                 type: 'confirm',
                 name: 'additionalMembers',
                 message: 'Would you like to add any other team members?',
@@ -117,7 +179,7 @@ const addTeamMember = () => {
         ])
 
         .then(employeeInfo => {
-            let { name, id, email, role, github, school, office, additionalMembers } = employeeInfo;
+            let { name, id, email, role, github, school, additionalMembers } = employeeInfo;
             let employee;
 
             if (role === 'Engineer') {
@@ -126,10 +188,8 @@ const addTeamMember = () => {
             } else if (role === 'Intern') {
                 employee = new Intern(name, id, email, school);
                 console.log(employee);
-            } else if (role === 'Manager') {
-                employee = new Manager(name, id, email, office);
-                console.log(employee);
             }
+
             teamArray.push(employee);
 
             if (additionalMembers) {
@@ -137,19 +197,27 @@ const addTeamMember = () => {
             } else {
                 return teamArray;
             }
-        });
-};
+        })
 
+}
 //function to generate HTML page with file system
 const writeFileSync = data => {
-    fs.writeFileSync()
-}
+    fs.writeFileSync //unsure of text inside
 
-.then((data) => fs.writeFileSync('index.html', generateHTML(data))) //how do you export an HTML?
-    .then(() => console.log('Successfully created an HTML file.'))
-    .catch((err) => console.error(err));
+
+
+    //if an error occurs
+    if (err) {
+        console.log(err);
+        return;
+        //if there is no error
+    } else {
+        console.log('Your team profile has been successfully created! Your information can be found in the `index.html` file.')
+    }
+};
 
 // Function call 
 // generateHtml();
+addManager();
 addTeamMember();
 
