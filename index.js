@@ -8,7 +8,7 @@ const Intern = require("./lib/Intern");
 // const generateHTML = require("./src/generateHTML");
 
 //team array
-const teamArray = [];
+const teamMembersArray = [];
 
 //do i need to wrap this all in an init()?
 
@@ -61,7 +61,7 @@ const addManager = () => {
 
             {
                 type: 'input',
-                name: 'office',
+                name: 'officeNumber',
                 message: 'Please enter in the manager\'s office number:',
                 validate: officeInput => {
                     if (isNaN(officeInput)) {
@@ -74,11 +74,11 @@ const addManager = () => {
             },
 
         ])
-        .then(managerInfo => {
-            const { name, id, email, office } = managerInfo;
-            const manager = new Manager(name, id, email, office);
+        .then(managerInfo => { //should it be getOfficeNumber?
+            const { name, id, email, officeNumber } = managerInfo;
+            const manager = new Manager(name, id, email, officeNumber);
 
-            teamArray.push(manager);
+            teamMembersArray.push(manager);
             console.log(manager);
 
         })
@@ -190,12 +190,12 @@ const addTeamMember = () => {
                 console.log(employee);
             }
 
-            teamArray.push(employee);
+            teamMembersArray.push(employee);
 
             if (additionalMembers) {
-                return addTeamMember(teamArray);
+                return addTeamMember(teamMembersArray);
             } else {
-                return teamArray;
+                return teamMembersArray;
             }
         })
 
