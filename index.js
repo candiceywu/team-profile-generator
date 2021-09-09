@@ -5,18 +5,22 @@ const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
-const generateHTML = require("./dist/generateHTML");
 
 
+const employees = [];
 
-// created an array of questions for user input
 function init() {
+    generateHtml();
+    addTeamMember();
+}
+
+function addEmployee() {
     inquirer
         .prompt([
             {
                 type: 'input',
                 name: 'name',
-                message: 'Please enter the team manager\'s name.',
+                message: 'Please enter the team member\'s name.',
             },
             {
                 type: 'input',
@@ -38,24 +42,20 @@ function init() {
                 name: 'staff',
                 message: 'Would you like to add an engineer or intern to your team roster?',
                 choices: ['Yes: engineer', 'Yes: intern', 'No, the roster is complete'],
-                // when: (answer) => answer.enterEngineer === true,
+
             },
 
         ])
 
-        // .then((answer) => {
-        //     if (answer.enterEngineer) {
 
-        //     }
-        // })
 
         // function to initialize app
-        .then((data) => fs.writeFileSync('index.html', generateHTML(data)))
+        .then((data) => fs.writeFileSync('index.html', generateHTML(data))) //how do you export an HTML?
         .then(() => console.log('Successfully created an HTML file.'))
         .catch((err) => console.error(err));
 
-}
 
+}
 // Function call to initialize app
 init();
 
