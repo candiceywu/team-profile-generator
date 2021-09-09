@@ -10,11 +10,7 @@ const Intern = require("./lib/Intern");
 //team array
 const teamArray = [];
 
-function init() {
-    // generateHtml();
-    addTeamMember();
-}
-
+//do i need to wrap this all in an init()?
 const addTeamMember = () => {
     inquirer
         .prompt([
@@ -144,11 +140,16 @@ const addTeamMember = () => {
         });
 };
 
-// //function to generate HTML page with file system
-.then((data) => fs.writeFileSync('index.html', generateHTML(data))) //how do you export an HTML?
-.then(() => console.log('Successfully created an HTML file.'))
-.catch((err) => console.error(err));
+//function to generate HTML page with file system
+const writeFileSync = data => {
+    fs.writeFileSync()
+}
 
-// Function call to initialize app
-init();
+.then((data) => fs.writeFileSync('index.html', generateHTML(data))) //how do you export an HTML?
+    .then(() => console.log('Successfully created an HTML file.'))
+    .catch((err) => console.error(err));
+
+// Function call 
+// generateHtml();
+addTeamMember();
 
