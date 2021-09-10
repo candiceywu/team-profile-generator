@@ -5,12 +5,10 @@ const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
-// const generateHTML = require("./src/generateHTML");
+const generateHTML = require("./src/generateHTML");
 
 //team array
 const teamMembersArray = [];
-
-//do i need to wrap this all in an init()?
 
 //function for manager info
 const addManager = () => {
@@ -74,13 +72,15 @@ const addManager = () => {
             },
 
         ])
-        .then(managerInfo => { //should it be getOfficeNumber?
+        .then(managerInfo => {
             const { name, id, email, officeNumber } = managerInfo;
             const manager = new Manager(name, id, email, officeNumber);
 
             teamMembersArray.push(manager);
             console.log(manager);
 
+            //then will run function for engineer and intern
+            addTeamMember();
         })
 };
 
@@ -195,29 +195,34 @@ const addTeamMember = () => {
             if (additionalMembers) {
                 return addTeamMember(teamMembersArray);
             } else {
-                return teamMembersArray;
+                writeFileSync(teamMembersArray);
             }
         })
 
+    
+
 }
+
 //function to generate HTML page with file system
 const writeFileSync = data => {
-    fs.writeFileSync ()//unsure of text inside
-
-
-
-    //if an error occurs
-    if (err) {
-        console.log(err);
-        return;
-        //if there is no error
-    } else {
-        console.log('Your team profile has been successfully created! Your information can be found in the `index.html` file.')
-    }
+    fs.writeFileSync('./dist/index.html', generateHTML(data), err => {
+        //if an error occurs
+        if (err) {
+            console.log(err);
+            return;
+            //if there is no error
+        } else {
+            console.log('Your team profile has been successfully created! Your information can be found in the `index.html` file.')
+        }
+    })
 };
 
-// Function call 
-// generateHtml();
-addManager();
-addTeamMember();
 
+
+// Function call 
+function init() {
+    // generateHtml();
+    addManager();
+}
+
+init();
