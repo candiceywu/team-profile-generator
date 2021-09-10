@@ -206,6 +206,7 @@ const addTeamMember = () => {
 //function to generate HTML page with file system
 const writeFileSync = data => {
     fs.writeFileSync('./dist/index.html', generateHTML(data), err => {
+        console.log(data);
         //if an error occurs
         if (err) {
             console.log(err);

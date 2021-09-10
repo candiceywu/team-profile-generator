@@ -6,7 +6,7 @@ const managerCard = (manager) => {
     <ul class="list-group list-group-flush">
         <li class="list-group-item">Role: ${manager.getRole()}</li>
         <li class="list-group-item">ID: ${manager.getId()}</li>
-        <li class="list-group-item">Email: ${manager.getEmail()}</li>
+        <li class="list-group-item">Email: <a href="mailto:${manager.getEmail()}">${manager.getEmail()}</a></li>
         <li class="list-group-item">Office number: ${manager.getOfficeNumber()}</li>
     </ul>
 </div>`;
@@ -18,7 +18,7 @@ const engineerCard = (engineer) => {
     <ul class="list-group list-group-flush">
         <li class="list-group-item">Role: ${engineer.getRole()}</li>
         <li class="list-group-item">ID: ${engineer.getId()}</li>
-        <li class="list-group-item">Email: ${engineer.getEmail()}</li>
+        <li class="list-group-item">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></li>
         <li class="list-group-item">GitHub: ${engineer.getGithub()}</li>
     </ul>
 </div>`;
@@ -30,34 +30,60 @@ const internCard = (intern) => {
     <ul class="list-group list-group-flush">
         <li class="list-group-item">Role: ${intern.getRole()}</li>
         <li class="list-group-item">ID: ${intern.getId()}</li>
-        <li class="list-group-item">Email: ${intern.getEmail()}</li>
+        <li class="list-group-item">Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></li>
         <li class="list-group-item">School: ${intern.getSchool()}</li>
     </ul>
 </div>`;
 }
 
+
+
 // for loop over data from inquirer prompt that returns cards to the generateHTML function
-function generateCards(createHTML) {
-    for (let i = 0; i < createHTML.length; i++) {
-        const employeeInfo = createHTML[i];
+function generateCards(teamMember) {
+
+    //card array to loop through each item
+    const cardArray = [];
+
+    for (let i = 0; i < teamMember.length; i++) {
+        const employeeInfo = teamMember[i];
         const role = employeeInfo.getRole();
 
+        //calls manager card function
         if (role === "Manager") {
             const managerInfo = managerCard(employeeInfo);
+
+            cardArray.push(managerInfo);
+
+            //calls engineer card function
         } else {
             if (role === "Engineer") {
                 const engineerInfo = engineerCard(employeeInfo);
+
+                cardArray.push(engineerInfo);
+
+                //calls intern card function
             } else {
                 if (role === "Intern") {
                     const internInfo = internCard(employeeInfo);
+
+                    cardArray.push(internInfo);
                 }
             }
         }
     }
+
+    //need to join strings 
+    const teamCards = cardArray.join('');
+
+    //need to return info to generated page
+    return teamCards;
 };
-  
-    function generateHTML(dataFromInquirer) {
-        return `<!DOCTYPE html>
+
+
+
+function generateHTML(teamCards) {
+    console.log(teamCards);
+    return `<!DOCTYPE html>
     <html lang="en">
     
     <head>
@@ -77,7 +103,7 @@ function generateCards(createHTML) {
     <header>My Team</header>
     <body>
 
-    ${generateCards(dataFromInquirer)}
+    ${generateCards(teamCards)}
 
     <!-- Added link to the jQuery library -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -90,6 +116,7 @@ function generateCards(createHTML) {
     </body>
     </html>
     `
-    }
+}
 
-    module.exports = generateHTML;
+//module exports to index.js
+module.exports = generateHTML;
