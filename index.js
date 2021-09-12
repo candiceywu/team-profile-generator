@@ -207,13 +207,15 @@ const addTeamMember = () => {
 const writeFileSync = data => {
     fs.writeFileSync('./dist/index.html', generateHTML(data), err => {
         console.log(data);
+
         //if an error occurs
         if (err) {
             console.log(err);
             return;
+
             //if there is no error
         } else {
-            console.log('Your team profile has been successfully created! Your information can be found in the `index.html` file.')
+            console.log('Your team profile has been successfully created! Your information can be found in the `index.html` file.');
         }
     })
 };
