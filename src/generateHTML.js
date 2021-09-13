@@ -19,7 +19,7 @@ const engineerCard = (engineer) => {
         <li class="list-group-item role">Role: ${engineer.getRole()}</li>
         <li class="list-group-item id">ID: ${engineer.getId()}</li>
         <li class="list-group-item email">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></li>
-        <li class="list-group-item github">GitHub: ${engineer.getGithub()}</li>
+        <li class="list-group-item github">GitHub: <a href="https://github.com/${engineer.getGithub()}"target="_blank">${engineer.getGithub()}</li>
     </ul>
 </div>`;
 }
