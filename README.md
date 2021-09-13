@@ -20,6 +20,8 @@
   ## Usage 
   The application has questions that prompt the user in filling out information that is then populated into the index.file in the /dist folder. The link for the walk-through video that demonstrates the functionality of the Team Profile Generator can be found [here](https://youtu.be/TzZP8lxgVys). Please click the link to launch the walk-through video. 
 
+  Please also find [here](https://github.com/candiceywu/team-profile-generator/blob/main/dist/index.html) the sample index.html that was generated as a result of the walk-through.
+
   ![Candice Wu's Team Profile Generator can be run from the command line.](assets/screenshot.png)
 
   ## License
